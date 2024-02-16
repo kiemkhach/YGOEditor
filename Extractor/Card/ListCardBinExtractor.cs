@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,7 +13,7 @@ using YGOEditor.Structure;
 
 namespace YGOEditor.Extractor.Card
 {
-    public class CardInfo
+    public class CardBasicInfo
     {
         public string Name { get; set; }
         public int Idx { get; set; }
@@ -20,13 +22,20 @@ namespace YGOEditor.Extractor.Card
         public string Note { get; set; }
         public string FileType { get; set; }
     }
-
     public class ListCardBinExtractor : IExtractor
     {
         private static readonly string TEMPLATE = @"\/\/\t([^\r]*)\r\n\/\/\t(\d{4})\:\[(\d{4})\]\s?(Back)?\r\n([^\r]*)\r\n";
-        public List<CardInfo> ListCardBinEntries { get; set; } = new List<CardInfo>();
+        public List<CardBasicInfo> ListCardInfo { get; set; } = new List<CardBasicInfo>();
         
         private List<YuGiDataEntry> data = new List<YuGiDataEntry>();
+
+        /*public YuGiData<YuGiDataEntry> AllData { get; set; }
+
+        public ListCardBinExtractor(YuGiData<YuGiDataEntry> allData)
+        {
+            AllData = allData;
+        }*/
+
         public bool CheckName(YuGiDataEntry file)
         {
             if (file.FileName.Contains("list_card.txt"))
@@ -62,7 +71,7 @@ namespace YGOEditor.Extractor.Card
                 flag = int.TryParse(item.Groups[2].Value, out int idx);
                 flag = int.TryParse(item.Groups[3].Value, out int id);
 
-                ListCardBinEntries.Add(new CardInfo
+                ListCardInfo.Add(new CardBasicInfo
                 {
                     Name = item.Groups[1].Value,
                     Idx = idx,

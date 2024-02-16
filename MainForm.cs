@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -30,9 +31,8 @@ namespace YGOEditor
                 {
                     data = new YuGiData(openFileDialog.FileName);
 
-                    data.LoadFileList();
                     yuGiDataEntryBindingSource.ResetBindings(false);
-                    yuGiDataEntryBindingSource.DataSource = data.Files;
+                    yuGiDataEntryBindingSource.DataSource = data;
                 }
                 catch (Exception exc)
                 {
@@ -120,7 +120,7 @@ namespace YGOEditor
         {
             if (FileList.SelectedRows.Count != 0)
             {
-                YuGiDataEntry yuGiDataEntry = data.Files[FileList.SelectedRows[0].Index];
+                YuGiDataEntry yuGiDataEntry = data[FileList.SelectedRows[0].Index];
                 string extension = Path.GetExtension(yuGiDataEntry.FileName);
                 if (extension == ".bmp")
                 {

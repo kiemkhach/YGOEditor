@@ -103,7 +103,7 @@ namespace YGOEditor.Structure
             get { return BasicInfo.FileType; }
         }
 
-        public CardInfo BasicInfo { private get; set; }
+        public CardBasicInfo BasicInfo { private get; set; }
 
         public CardDescBin Desc { private get; set; }
 

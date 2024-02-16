@@ -41,12 +41,12 @@
             this.folderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.picture = new System.Windows.Forms.PictureBox();
             this.FileList = new System.Windows.Forms.DataGridView();
+            this.FullSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textFile = new System.Windows.Forms.RichTextBox();
             this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FullSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.offsetDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.yuGiDataEntryBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.textFile = new System.Windows.Forms.RichTextBox();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FileList)).BeginInit();
@@ -62,7 +62,7 @@
             this.advanceToolToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(1002, 33);
+            this.mainMenu.Size = new System.Drawing.Size(1002, 36);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -73,7 +73,7 @@
             this.extractToolStripMenuItem,
             this.replaceToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 32);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // loadToolStripMenuItem
@@ -102,7 +102,7 @@
             this.advanceToolToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cardListToolStripMenuItem});
             this.advanceToolToolStripMenuItem.Name = "advanceToolToolStripMenuItem";
-            this.advanceToolToolStripMenuItem.Size = new System.Drawing.Size(134, 29);
+            this.advanceToolToolStripMenuItem.Size = new System.Drawing.Size(134, 32);
             this.advanceToolToolStripMenuItem.Text = "Advance Tool";
             // 
             // cardListToolStripMenuItem
@@ -144,6 +144,7 @@
             this.sizeDataGridViewTextBoxColumn,
             this.FullSize,
             this.offsetDataGridViewTextBoxColumn});
+            this.FileList.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.yuGiDataEntryBindingSource, "FileName", true));
             this.FileList.DataSource = this.yuGiDataEntryBindingSource;
             this.FileList.Location = new System.Drawing.Point(13, 37);
             this.FileList.MultiSelect = false;
@@ -156,6 +157,29 @@
             this.FileList.Size = new System.Drawing.Size(504, 695);
             this.FileList.TabIndex = 3;
             this.FileList.SelectionChanged += new System.EventHandler(this.FileList_SelectionChanged);
+            // 
+            // FullSize
+            // 
+            this.FullSize.DataPropertyName = "FullSize";
+            this.FullSize.HeaderText = "FullSize";
+            this.FullSize.MinimumWidth = 8;
+            this.FullSize.Name = "FullSize";
+            this.FullSize.ReadOnly = true;
+            this.FullSize.Width = 80;
+            // 
+            // textFile
+            // 
+            this.textFile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textFile.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textFile.Location = new System.Drawing.Point(523, 37);
+            this.textFile.Name = "textFile";
+            this.textFile.ReadOnly = true;
+            this.textFile.Size = new System.Drawing.Size(467, 695);
+            this.textFile.TabIndex = 4;
+            this.textFile.Text = "";
+            this.textFile.Visible = false;
             // 
             // fileNameDataGridViewTextBoxColumn
             // 
@@ -175,15 +199,6 @@
             this.sizeDataGridViewTextBoxColumn.ReadOnly = true;
             this.sizeDataGridViewTextBoxColumn.Width = 80;
             // 
-            // FullSize
-            // 
-            this.FullSize.DataPropertyName = "FullSize";
-            this.FullSize.HeaderText = "FullSize";
-            this.FullSize.MinimumWidth = 8;
-            this.FullSize.Name = "FullSize";
-            this.FullSize.ReadOnly = true;
-            this.FullSize.Width = 80;
-            // 
             // offsetDataGridViewTextBoxColumn
             // 
             this.offsetDataGridViewTextBoxColumn.DataPropertyName = "Offset";
@@ -197,20 +212,6 @@
             // yuGiDataEntryBindingSource
             // 
             this.yuGiDataEntryBindingSource.DataSource = typeof(YGOEditor.Structure.YuGiDataEntry);
-            // 
-            // textFile
-            // 
-            this.textFile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textFile.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textFile.Location = new System.Drawing.Point(523, 37);
-            this.textFile.Name = "textFile";
-            this.textFile.ReadOnly = true;
-            this.textFile.Size = new System.Drawing.Size(467, 695);
-            this.textFile.TabIndex = 4;
-            this.textFile.Text = "";
-            this.textFile.Visible = false;
             // 
             // MainForm
             // 

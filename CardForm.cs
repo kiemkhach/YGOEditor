@@ -9,44 +9,47 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YGOEditor.Structure;
+using static System.Net.WebRequestMethods;
 
 namespace YGOEditor
 {
     public partial class CardForm : Form
     {
-        private YuGiCardCollection _cards;
+        private YuGiCardList cards;
         public CardForm(YuGiData data)
         {
-            _cards = new YuGiCardCollection(data);
+            cards = new YuGiCardList(data);
             InitializeComponent();
         }
 
         private void CardForm_Load(object sender, EventArgs e)
         {
             cbbLang.SelectedIndex = 0;
-            _cards.BuildCollection();
-            yuGiCardBindingSource.ResetBindings(false);
-            yuGiCardBindingSource.DataSource = _cards.Cards;
+            yugiCardBindingSource.ResetBindings(false);
+            yugiCardBindingSource.DataSource = cards;
         }
 
-        private void CardList_SelectionChanged(object sender, EventArgs e)
+
+        private void CbbLang_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (CardList.SelectedRows.Count != 0)
-            {
-                YuGiCard yuGiCard = _cards.Cards[CardList.SelectedRows[0].Index];
-
-                
-
-            }
-        }
-
-        private void cbbLang_SelectedValueChanged(object sender, EventArgs e)
-        {
-            foreach (var card in _cards.Cards)
+            foreach (var card in cards)
             {
                 card.Lang = cbbLang.Text;
             }
-            yuGiCardBindingSource.ResetBindings(false);
+            yugiCardBindingSource.ResetBindings(false);
+        }
+
+        private void TsbFilter_Click(object sender, EventArgs e)
+        {
+            if ((yugiCardBindingSource.Filter == null) || (yugiCardBindingSource.Filter == "")) {
+                yugiCardBindingSource.Filter = "CardImageName = 'token_sl.bmp'";
+            } else
+            {
+                yugiCardBindingSource.Filter = "";
+            }
+            
+            //yuGiCardBindingSource.ResetBindings(false);
+            dgCardList.Refresh();
         }
     }
 }

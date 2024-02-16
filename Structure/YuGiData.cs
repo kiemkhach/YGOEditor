@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,31 +7,41 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace YGOEditor.Structure
 {
     /// <summary>
     /// [WIP] YuGi .dat file
     /// </summary>
-    public class YuGiData
+    public class YuGiData : FilterBindingList<YuGiDataEntry>
     {
-        public string FileName { get; set; }
-        public List<YuGiDataEntry> Files { get; set; } = new List<YuGiDataEntry>();
+        #region CustomDefinition
+        public string Path { get; set; }
+        private Dictionary<string, YuGiDataEntry> Files { get; set; } = new Dictionary<string, YuGiDataEntry>();
 
-        public YuGiData(string fileName)
+        public YuGiData(string path)
         {
-            FileName = fileName;
+            Path = path;
+            Initialize();
         }
 
-        public YuGiDataEntry FindFileByName(string name)
+        public YuGiData()
         {
-            var res = Files.FirstOrDefault(datFile => datFile.FileName.Contains(name));
-            return res;
         }
 
-        public byte[] GetDataFromEntry(int offset, int length)
+        public YuGiDataEntry Find(string name)
         {
-            using (BinaryReader reader = new BinaryReader(new FileStream(FileName, FileMode.Open)))
+            if (Files.ContainsKey(name))
+            {
+                return Files[name];
+            }
+            return null;
+        }
+
+        public byte[] ReadData(int offset, int length)
+        {
+            using (BinaryReader reader = new BinaryReader(new FileStream(Path, FileMode.Open)))
             {
                 reader.BaseStream.Seek(offset, SeekOrigin.Begin);
                 byte[] data = new byte[length];
@@ -40,9 +51,9 @@ namespace YGOEditor.Structure
             }
         }
 
-        public bool LoadFileList()
+        public bool Initialize()
         {
-            using (BinaryReader reader = new BinaryReader(new FileStream(FileName, FileMode.Open)))
+            using (BinaryReader reader = new BinaryReader(new FileStream(Path, FileMode.Open)))
             {
                 string header = Encoding.ASCII.GetString(reader.ReadBytes(8));
                 if (header != "KCEJYUGI") return false;
@@ -52,10 +63,41 @@ namespace YGOEditor.Structure
                 {
                     byte[] fileHeader = new byte[268];
                     reader.Read(fileHeader, 0, fileHeader.Length);
-                    Files.Add(new YuGiDataEntry(fileHeader, GetDataFromEntry));
+                    this.Add(new YuGiDataEntry(fileHeader, ReadData));
                 }
             }
             return true;
         }
+        #endregion CustomDefinition
+
+        #region ImplementBidingList
+        protected override FilterBindingList<YuGiDataEntry> NewInstance()
+        {
+            return new YuGiData();
+        }
+
+        protected override IEnumerable GetOriginList()
+        {
+            return Files.Values;
+        }
+
+        protected override int CountOrigin()
+        {
+            return Files.Count;
+        }
+
+        protected override void AddOrigin(YuGiDataEntry o)
+        {
+            if (!Files.ContainsKey(o.FileName))
+            {
+                Files.Add(o.FileName, o);
+            }
+        }
+
+        protected override void RemoveOrigin(int index)
+        {
+            Files.Remove(this[index].FileName);
+        }
+        #endregion ImplementBidingList
     }
 }
