@@ -88,7 +88,7 @@ namespace YGOEditor
         private void ShowPicture(YuGiDataEntry yuGiDataEntry)
         {
             MemoryStream pictureStream = new MemoryStream();
-            pictureStream.Write(yuGiDataEntry.GetData(), 0, yuGiDataEntry.FullSize);
+            pictureStream.Write(yuGiDataEntry.Data, 0, yuGiDataEntry.FullSize);
 
             pictureStream.Flush();
 
@@ -112,7 +112,7 @@ namespace YGOEditor
         private void ShowText(YuGiDataEntry yuGiDataEntry)
         {
             textFile.Text = string.Join("\n\n", 
-                Encoding.UTF8.GetString(yuGiDataEntry.GetData()).Split(new char[] { '\0' }, 
+                Encoding.UTF8.GetString(yuGiDataEntry.Data).Split(new char[] { '\0' }, 
                 StringSplitOptions.RemoveEmptyEntries));
         }
 

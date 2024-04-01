@@ -15,10 +15,37 @@ namespace YGOEditor.Structure
         public int Size { get; set; }
         public int FullSize { get; set; }
         public int Offset { get; set; }
+        public bool Changed { get; set; } = false;
 
         private readonly Func<int, int, byte[]> funcReadFile;
-        private byte[] data;
 
+        private byte[] data = null;
+        public byte[] Data
+        {
+            get {
+                if (this.data != null) { return this.data; }
+
+                this.data = this.funcReadFile(this.Offset, this.Size);
+                if (this.Size != this.FullSize)
+                {
+                    this.data = YuGiLZSS.Decompress(this.data);
+                }
+
+                return this.data;
+            }
+            set { 
+                this.data = value;
+                FullSize = data.Length;
+                Size = data.Length;
+                Changed = true;
+            }
+        }
+
+        public YuGiDataEntry(string fileName, byte[] data)
+        {
+            FileName = fileName;
+            Data = data;
+        }
 
         public YuGiDataEntry(byte[] bytes, Func<int, int, byte[]> funcReadFile)
         {
@@ -65,19 +92,6 @@ namespace YGOEditor.Structure
         public override string ToString()
         {
             return String.Format("Offset: {0}, Size: {1}, SizeExtra: {2}, FileName: {3}", Offset, Size, FullSize, FileName);
-        }
-
-        public byte[] GetData()
-        {
-            if (this.data != null) { return this.data; } 
-
-            this.data = this.funcReadFile(this.Offset, this.Size);
-            if (this.Size != this.FullSize)
-            {
-                this.data = YuGiLZSS.Decompress(this.data);
-            }
-
-            return this.data;
         }
     }
 }

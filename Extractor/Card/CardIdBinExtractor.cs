@@ -29,7 +29,7 @@ namespace YGOEditor.Extractor.Card
         {
             foreach (YuGiDataEntry entry in data)
             {
-                byte[] bytes = entry.GetData();
+                byte[] bytes = entry.Data;
                 for (int i = 0; i < bytes.Length / BYTE_LENGTH; i++)
                 {
                     ListCardIdBin.Add(BitConverter.ToInt16(bytes, i * BYTE_LENGTH));

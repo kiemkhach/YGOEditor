@@ -30,7 +30,7 @@ namespace YGOEditor.Extractor.Card
             foreach (YuGiDataEntry entry in data)
             {
                 string lang = entry.FileName.Substring(entry.FileName.Length - 7, 3);
-                this.Parse(entry.GetData(), lang);
+                this.Parse(entry.Data, lang);
             }
         }
 

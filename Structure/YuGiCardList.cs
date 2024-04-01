@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using YGOEditor.Extractor.Card;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace YGOEditor.Structure
 {
@@ -24,23 +25,23 @@ namespace YGOEditor.Structure
         private YuGiData _data;
         public YuGiData Data { 
             get {  return _data; }
-            set { _data = value; Parse(); Initialize();  }
+            set { _data = value; Initialize(); Parse(); }
         }
-        public List<IExtractor> CardExtractors { get; set; } = new List<IExtractor> { 
-            new ListCardBinExtractor(),
-            new CardNameBinExtractor(),
-            new CardDescBinExtractor(),
-            new CardIdBinExtractor(),
-            new CardImageExtractor(),
-            new CardIndxBinExtractor(),
-            new CardPackBinExtractor(),
-            new CardPassBinExtractor(),
-            new CardPropBinExtractor(),
-            new CardSortBinExtractor()
-        };
+        public List<IExtractor> CardExtractors { get; set; }
+        ListCardBinExtractor listCardBinExtractor;
+        CardNameBinExtractor cardNameBinExtractor;
+        CardDescBinExtractor cardDescBinExtractor;
+        CardIdBinExtractor   cardIdBinExtractor;
+        CardImageExtractor   cardImageExtractor;
+        CardIndxBinExtractor cardIndxBinExtractor;
+        CardPackBinExtractor cardPackBinExtractor;
+        CardPassBinExtractor cardPassBinExtractor;
+        CardPropBinExtractor cardPropBinExtractor;
+        CardSortBinExtractor cardSortBinExtractor;
 
         private void Parse()
         {
+            
             foreach (var item in Data)
             {
                 foreach (var extractor in CardExtractors)
@@ -53,20 +54,6 @@ namespace YGOEditor.Structure
                 extractor.Parse();
             }
 
-        }
-
-        public void Initialize()
-        {
-            ListCardBinExtractor listCardBinExtractor = (ListCardBinExtractor)CardExtractors[0];
-            CardNameBinExtractor cardNameBinExtractor = (CardNameBinExtractor)CardExtractors[1];
-            CardDescBinExtractor cardDescBinExtractor = (CardDescBinExtractor)CardExtractors[2];
-            CardIdBinExtractor cardIdBinExtractor = (CardIdBinExtractor)CardExtractors[3];
-            CardImageExtractor cardImageExtractor = (CardImageExtractor)CardExtractors[4];
-            CardIndxBinExtractor cardIndxBinExtractor = (CardIndxBinExtractor)CardExtractors[5];
-            CardPackBinExtractor cardPackBinExtractor = (CardPackBinExtractor)CardExtractors[6];
-            CardPassBinExtractor cardPassBinExtractor = (CardPassBinExtractor)CardExtractors[7];
-            CardPropBinExtractor cardPropBinExtractor = (CardPropBinExtractor)CardExtractors[8];
-            CardSortBinExtractor cardSortBinExtractor = (CardSortBinExtractor)CardExtractors[9];
             int cardNumer = listCardBinExtractor.ListCardInfo.Count;
             for (int idx = 0; idx < cardNumer; idx++)
             {
@@ -81,12 +68,43 @@ namespace YGOEditor.Structure
                     Password = cardPassBinExtractor.ListCardPassBin[idx],
                     Properties = cardPropBinExtractor.ListCardPropBin[idx],
                     OrderId = cardSortBinExtractor.OrderId[idx],
-                    Images = cardImageExtractor.images,
-                    ImagesMini = cardImageExtractor.imagesMini,
+                    funcGetImage = cardImageExtractor.GetImage,
+                    funcSetImage = cardImageExtractor.UpSertCardImage,
                 };
                 this.Cards.Add(card);
                 this.Items.Add(card);
             }
+        }
+
+        public void Initialize()
+        {
+            listCardBinExtractor = new ListCardBinExtractor();
+            cardNameBinExtractor = new CardNameBinExtractor();
+            cardDescBinExtractor = new CardDescBinExtractor();
+            cardIdBinExtractor   = new CardIdBinExtractor()  ;
+            cardImageExtractor   = new CardImageExtractor()  ;
+            cardIndxBinExtractor = new CardIndxBinExtractor();
+            cardPackBinExtractor = new CardPackBinExtractor();
+            cardPassBinExtractor = new CardPassBinExtractor();
+            cardPropBinExtractor = new CardPropBinExtractor();
+            cardSortBinExtractor = new CardSortBinExtractor();
+            Cards.Clear();
+            this.Items.Clear();
+
+            CardExtractors = new List<IExtractor> {
+                listCardBinExtractor,
+                cardNameBinExtractor,
+                cardDescBinExtractor,
+                cardIdBinExtractor  ,
+                cardImageExtractor  ,
+                cardIndxBinExtractor,
+                cardPackBinExtractor,
+                cardPassBinExtractor,
+                cardPropBinExtractor,
+                cardSortBinExtractor,
+            };
+
+            cardImageExtractor.funcUpdateFileEntry = _data.UpdateEntry;
         }
         #endregion CustomDefinition
 

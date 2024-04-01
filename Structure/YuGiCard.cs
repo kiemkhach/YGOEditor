@@ -22,10 +22,19 @@ namespace YGOEditor.Structure
         }
         public string CardName {
             get { return Name.Name[Lang]; }
+            set
+            {
+                Name.Name[Lang] = value;
+                if (Lang == "eng") { BasicInfo.Name = value; }
+            }
         }
         public string CardDesc
         {
             get { return Desc.Desc[Lang]; }
+            set
+            {
+                Desc.Desc[Lang] = value;
+            }
         }
 
         public int CardDescOffset
@@ -75,7 +84,7 @@ namespace YGOEditor.Structure
 
         public Image CardImage
         {
-            get { return Images[BasicInfo.FileName.ToLower()]; }
+            get { return funcGetImage(BasicInfo.FileName.ToLower(), false); }
         }
 
         public string CardImageName
@@ -83,24 +92,14 @@ namespace YGOEditor.Structure
             get { return BasicInfo.FileName; }
         }
 
-        public string CardImageType
-        {
-            get { return BasicInfo.FileType; }
-        }
-
         public Image CardImageMini
         {
-            get { return ImagesMini[BasicInfo.FileName.ToLower()]; }
+            get { return funcGetImage(BasicInfo.FileMiniName.ToLower(), true); }
         }
 
         public string CardImageNameMini
         {
-            get { return BasicInfo.FileName; }
-        }
-
-        public string CardImageMiniType
-        {
-            get { return BasicInfo.FileType; }
+            get { return BasicInfo.FileMiniName; }
         }
 
         public CardBasicInfo BasicInfo { private get; set; }
@@ -121,8 +120,8 @@ namespace YGOEditor.Structure
 
         public Dictionary<string, Int16> OrderId { private get; set; }
 
-        public Dictionary<string, Image> Images { private get; set; }
+        public Func<string, bool, Image> funcGetImage;
 
-        public Dictionary<string, Image> ImagesMini { private get; set; }
+        public Func<Image, string, string, bool, bool> funcSetImage;
     }
 }

@@ -56,7 +56,7 @@ namespace YGOEditor.Extractor.Card
         {
             foreach (YuGiDataEntry entry in data)
             {
-                Parse(entry.GetData(), "eng");
+                Parse(entry.Data, "eng");
                 break;
             }
         }

@@ -19,8 +19,8 @@ namespace YGOEditor.Extractor.Card
         public int Idx { get; set; }
         public int Id { get; set; }
         public string FileName { get; set; }
+        public string FileMiniName { get; set; }
         public string Note { get; set; }
-        public string FileType { get; set; }
     }
     public class ListCardBinExtractor : IExtractor
     {
@@ -50,12 +50,11 @@ namespace YGOEditor.Extractor.Card
         {
             foreach (YuGiDataEntry entry in data)
             {
-                this.Parse(entry.GetData(), "eng");
-                break;
+                this.Parse(entry.Data, "eng", entry.FileName.Contains("mini"));
             }
         }
 
-        public void Parse(byte[] bytes, string lang)
+        public void Parse(byte[] bytes, string lang, bool isMini)
         {
             string dataText = Encoding.UTF8.GetString(bytes);
             if (string.IsNullOrEmpty(dataText))
@@ -65,23 +64,57 @@ namespace YGOEditor.Extractor.Card
             Regex regex = new Regex(TEMPLATE);
             MatchCollection match = regex.Matches(dataText);
             bool flag;
+            bool isExisted = ListCardInfo.Count != 0;
+            int i = 0;
             foreach (Match item in match)
             {
                 string[] str = item.Value.Split('\n');
                 flag = int.TryParse(item.Groups[2].Value, out int idx);
                 flag = int.TryParse(item.Groups[3].Value, out int id);
 
-                ListCardInfo.Add(new CardBasicInfo
+                if (isExisted)
                 {
-                    Name = item.Groups[1].Value,
-                    Idx = idx,
-                    Id = id,
-                    FileName = item.Groups[5].Value,
-                    Note = item.Groups[4].Value,
-                    FileType = item.Groups[5].Value.Split('.')[1]
-                });
-
+                    if (isMini) 
+                    {
+                        ListCardInfo[i].FileMiniName = item.Groups[5].Value;
+                    } else
+                    {
+                        ListCardInfo[i].FileName = item.Groups[5].Value;
+                    }
+                    
+                } else
+                {
+                    if (isMini)
+                    {
+                        ListCardInfo.Add(new CardBasicInfo
+                        {
+                            Name = item.Groups[1].Value,
+                            Idx = idx,
+                            Id = id,
+                            FileMiniName = item.Groups[5].Value,
+                            Note = item.Groups[4].Value
+                        });
+                    }
+                    else
+                    {
+                        ListCardInfo.Add(new CardBasicInfo
+                        {
+                            Name = item.Groups[1].Value,
+                            Idx = idx,
+                            Id = id,
+                            FileName = item.Groups[5].Value,
+                            Note = item.Groups[4].Value
+                        });
+                    }
+                    
+                }
+                i ++;
             }
+        }
+
+        public void Parse(byte[] bytes, string lang)
+        {
+            throw new NotImplementedException();
         }
     }
 }

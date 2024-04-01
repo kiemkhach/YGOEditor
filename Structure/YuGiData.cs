@@ -30,6 +30,23 @@ namespace YGOEditor.Structure
         {
         }
 
+        public YuGiDataEntry UpdateEntry(string name, byte[] data)
+        {
+            if (data == null || data.Length == 0)
+            {
+                Files.Remove(name);
+                return null;
+            }
+            if (Files.ContainsKey(name))
+            {
+                Files[name].Data = data;
+                return Files[name];
+            }
+            YuGiDataEntry newObj = new YuGiDataEntry(name, data);
+            Add(newObj);
+            return newObj;
+        }
+
         public YuGiDataEntry Find(string name)
         {
             if (Files.ContainsKey(name))

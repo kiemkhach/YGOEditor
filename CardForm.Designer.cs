@@ -31,21 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CardForm));
             this.txtFileNameMiniPic = new System.Windows.Forms.TextBox();
-            this.yugiCardBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblFileNameMiniPic = new System.Windows.Forms.Label();
             this.txtFileNamePic = new System.Windows.Forms.TextBox();
             this.lblFileNamePic = new System.Windows.Forms.Label();
             this.miniPicture = new System.Windows.Forms.PictureBox();
             this.picture = new System.Windows.Forms.PictureBox();
-            this.lblFileTypePic = new System.Windows.Forms.Label();
-            this.txtFileTypePic = new System.Windows.Forms.TextBox();
-            this.lblFileTypeMiniPic = new System.Windows.Forms.Label();
-            this.txtFileTypeMiniPic = new System.Windows.Forms.TextBox();
             this.groupCollection = new System.Windows.Forms.GroupBox();
             this.dgCardList = new System.Windows.Forms.DataGridView();
-            this.dgvcCardIdx = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvcCardId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvcCardName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvcImageName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CardDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableRight = new System.Windows.Forms.TableLayoutPanel();
@@ -99,7 +91,10 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbFilter = new System.Windows.Forms.ToolStripButton();
-            ((System.ComponentModel.ISupportInitialize)(this.yugiCardBindingSource)).BeginInit();
+            this.yugiCardBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dgvcCardIdx = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvcCardId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvcCardName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.miniPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.groupCollection.SuspendLayout();
@@ -112,6 +107,7 @@
             this.tableLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bdnCards)).BeginInit();
             this.bdnCards.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.yugiCardBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // txtFileNameMiniPic
@@ -123,11 +119,6 @@
             this.txtFileNameMiniPic.Name = "txtFileNameMiniPic";
             this.txtFileNameMiniPic.Size = new System.Drawing.Size(155, 26);
             this.txtFileNameMiniPic.TabIndex = 5;
-            // 
-            // yugiCardBindingSource
-            // 
-            this.yugiCardBindingSource.DataSource = typeof(YGOEditor.Structure.YuGiCard);
-            this.yugiCardBindingSource.Filter = "";
             // 
             // lblFileNameMiniPic
             // 
@@ -188,49 +179,6 @@
             this.picture.TabIndex = 0;
             this.picture.TabStop = false;
             // 
-            // lblFileTypePic
-            // 
-            this.lblFileTypePic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblFileTypePic.AutoSize = true;
-            this.lblFileTypePic.Location = new System.Drawing.Point(6, 495);
-            this.lblFileTypePic.Name = "lblFileTypePic";
-            this.lblFileTypePic.Size = new System.Drawing.Size(84, 20);
-            this.lblFileTypePic.TabIndex = 7;
-            this.lblFileTypePic.Text = "File Type : ";
-            // 
-            // txtFileTypePic
-            // 
-            this.txtFileTypePic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFileTypePic.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.yugiCardBindingSource, "CardImageType", true));
-            this.txtFileTypePic.Location = new System.Drawing.Point(111, 492);
-            this.txtFileTypePic.MaxLength = 6;
-            this.txtFileTypePic.Name = "txtFileTypePic";
-            this.txtFileTypePic.ReadOnly = true;
-            this.txtFileTypePic.Size = new System.Drawing.Size(161, 26);
-            this.txtFileTypePic.TabIndex = 8;
-            // 
-            // lblFileTypeMiniPic
-            // 
-            this.lblFileTypeMiniPic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFileTypeMiniPic.AutoSize = true;
-            this.lblFileTypeMiniPic.Location = new System.Drawing.Point(113, 115);
-            this.lblFileTypeMiniPic.Name = "lblFileTypeMiniPic";
-            this.lblFileTypeMiniPic.Size = new System.Drawing.Size(84, 20);
-            this.lblFileTypeMiniPic.TabIndex = 10;
-            this.lblFileTypeMiniPic.Text = "File Type : ";
-            // 
-            // txtFileTypeMiniPic
-            // 
-            this.txtFileTypeMiniPic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFileTypeMiniPic.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.yugiCardBindingSource, "CardImageMiniType", true));
-            this.txtFileTypeMiniPic.Location = new System.Drawing.Point(117, 138);
-            this.txtFileTypeMiniPic.MaxLength = 6;
-            this.txtFileTypeMiniPic.Name = "txtFileTypeMiniPic";
-            this.txtFileTypeMiniPic.ReadOnly = true;
-            this.txtFileTypeMiniPic.Size = new System.Drawing.Size(155, 26);
-            this.txtFileTypeMiniPic.TabIndex = 11;
-            // 
             // groupCollection
             // 
             this.groupCollection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -272,33 +220,6 @@
             this.dgCardList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgCardList.Size = new System.Drawing.Size(421, 684);
             this.dgCardList.TabIndex = 0;
-            // 
-            // dgvcCardIdx
-            // 
-            this.dgvcCardIdx.DataPropertyName = "CardIdx";
-            this.dgvcCardIdx.HeaderText = "#";
-            this.dgvcCardIdx.MinimumWidth = 8;
-            this.dgvcCardIdx.Name = "dgvcCardIdx";
-            this.dgvcCardIdx.ReadOnly = true;
-            this.dgvcCardIdx.Width = 50;
-            // 
-            // dgvcCardId
-            // 
-            this.dgvcCardId.DataPropertyName = "CardId";
-            this.dgvcCardId.HeaderText = "Id";
-            this.dgvcCardId.MinimumWidth = 8;
-            this.dgvcCardId.Name = "dgvcCardId";
-            this.dgvcCardId.ReadOnly = true;
-            this.dgvcCardId.Width = 50;
-            // 
-            // dgvcCardName
-            // 
-            this.dgvcCardName.DataPropertyName = "CardName";
-            this.dgvcCardName.HeaderText = "Name";
-            this.dgvcCardName.MinimumWidth = 8;
-            this.dgvcCardName.Name = "dgvcCardName";
-            this.dgvcCardName.ReadOnly = true;
-            this.dgvcCardName.Width = 250;
             // 
             // dgvcImageName
             // 
@@ -361,8 +282,6 @@
             this.groupPicture.Controls.Add(this.picture);
             this.groupPicture.Controls.Add(this.lblFileNamePic);
             this.groupPicture.Controls.Add(this.txtFileNamePic);
-            this.groupPicture.Controls.Add(this.lblFileTypePic);
-            this.groupPicture.Controls.Add(this.txtFileTypePic);
             this.groupPicture.Location = new System.Drawing.Point(3, 3);
             this.groupPicture.Name = "groupPicture";
             this.groupPicture.Size = new System.Drawing.Size(278, 539);
@@ -376,9 +295,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupMiniPicture.Controls.Add(this.miniPicture);
-            this.groupMiniPicture.Controls.Add(this.txtFileTypeMiniPic);
             this.groupMiniPicture.Controls.Add(this.lblFileNameMiniPic);
-            this.groupMiniPicture.Controls.Add(this.lblFileTypeMiniPic);
             this.groupMiniPicture.Controls.Add(this.txtFileNameMiniPic);
             this.groupMiniPicture.Location = new System.Drawing.Point(3, 548);
             this.groupMiniPicture.Name = "groupMiniPicture";
@@ -723,7 +640,7 @@
             // 
             this.lblLang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLang.AutoSize = true;
-            this.lblLang.Location = new System.Drawing.Point(10, 625);
+            this.lblLang.Location = new System.Drawing.Point(13, 626);
             this.lblLang.Name = "lblLang";
             this.lblLang.Size = new System.Drawing.Size(81, 20);
             this.lblLang.TabIndex = 0;
@@ -792,7 +709,7 @@
             this.bdnCards.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bdnCards.Name = "bdnCards";
             this.bdnCards.PositionItem = this.bindingNavigatorPositionItem;
-            this.bdnCards.Size = new System.Drawing.Size(1178, 34);
+            this.bdnCards.Size = new System.Drawing.Size(1178, 38);
             this.bdnCards.TabIndex = 7;
             this.bdnCards.Text = "navigator";
             // 
@@ -803,13 +720,13 @@
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(34, 29);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorAddNewItem.Text = "Add new";
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(54, 29);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(54, 33);
             this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
@@ -820,7 +737,7 @@
             this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
             this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(34, 29);
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorDeleteItem.Text = "Delete";
             // 
             // bindingNavigatorMoveFirstItem
@@ -829,7 +746,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(34, 29);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -838,13 +755,13 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(34, 29);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 34);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 38);
             // 
             // bindingNavigatorPositionItem
             // 
@@ -859,7 +776,7 @@
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 34);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 38);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -867,7 +784,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(34, 29);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -876,22 +793,54 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(34, 29);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(34, 33);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 34);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 38);
             // 
             // tsbFilter
             // 
             this.tsbFilter.Image = ((System.Drawing.Image)(resources.GetObject("tsbFilter.Image")));
             this.tsbFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbFilter.Name = "tsbFilter";
-            this.tsbFilter.Size = new System.Drawing.Size(121, 29);
+            this.tsbFilter.Size = new System.Drawing.Size(121, 33);
             this.tsbFilter.Text = "Null Cards";
             this.tsbFilter.Click += new System.EventHandler(this.TsbFilter_Click);
+            // 
+            // yugiCardBindingSource
+            // 
+            this.yugiCardBindingSource.DataSource = typeof(YGOEditor.Structure.YuGiCard);
+            this.yugiCardBindingSource.Filter = "";
+            // 
+            // dgvcCardIdx
+            // 
+            this.dgvcCardIdx.DataPropertyName = "CardIdx";
+            this.dgvcCardIdx.HeaderText = "#";
+            this.dgvcCardIdx.MinimumWidth = 8;
+            this.dgvcCardIdx.Name = "dgvcCardIdx";
+            this.dgvcCardIdx.ReadOnly = true;
+            this.dgvcCardIdx.Width = 50;
+            // 
+            // dgvcCardId
+            // 
+            this.dgvcCardId.DataPropertyName = "CardId";
+            this.dgvcCardId.HeaderText = "Id";
+            this.dgvcCardId.MinimumWidth = 8;
+            this.dgvcCardId.Name = "dgvcCardId";
+            this.dgvcCardId.ReadOnly = true;
+            this.dgvcCardId.Width = 50;
+            // 
+            // dgvcCardName
+            // 
+            this.dgvcCardName.DataPropertyName = "CardName";
+            this.dgvcCardName.HeaderText = "Name";
+            this.dgvcCardName.MinimumWidth = 8;
+            this.dgvcCardName.Name = "dgvcCardName";
+            this.dgvcCardName.ReadOnly = true;
+            this.dgvcCardName.Width = 250;
             // 
             // CardForm
             // 
@@ -907,7 +856,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Card List";
             this.Load += new System.EventHandler(this.CardForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.yugiCardBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.miniPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.groupCollection.ResumeLayout(false);
@@ -924,6 +872,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bdnCards)).EndInit();
             this.bdnCards.ResumeLayout(false);
             this.bdnCards.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.yugiCardBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -937,10 +886,6 @@
         private System.Windows.Forms.TextBox txtFileNamePic;
         private System.Windows.Forms.TextBox txtFileNameMiniPic;
         private System.Windows.Forms.Label lblFileNameMiniPic;
-        private System.Windows.Forms.Label lblFileTypePic;
-        private System.Windows.Forms.TextBox txtFileTypeMiniPic;
-        private System.Windows.Forms.Label lblFileTypeMiniPic;
-        private System.Windows.Forms.TextBox txtFileTypePic;
         private System.Windows.Forms.GroupBox groupCollection;
         private System.Windows.Forms.TableLayoutPanel tableRight;
         private System.Windows.Forms.TableLayoutPanel tablePicture;
